@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>OI-CHAT</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='oichat.css') }}">
+</head>
+<body>
+    <p id='messages'>
+    </p>
+    <form onsubmit="return send_message();">
+        <input id="oi_text" type=text>
+        <input type="submit" value='oi!'>
+    </form>
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port + '/test');
+        socket.on('oi response', function(msg) { 
+            let li = document.createElement('li');
+            let ul = document.getElementById('messages');
+            li.textContent = msg.data;
+            ul.appendChild(li);
+        });
+        function send_message() {
+            let msg = document.getElementById('oi_text').value;
+            socket.emit('oimessage', {data: msg});
+            document.getElementById('oi_text').value = '';
+            return false
+        };
+    </script>
+</body>
+
