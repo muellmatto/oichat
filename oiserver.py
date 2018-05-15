@@ -23,4 +23,4 @@ def test_connect():
 #    print('Client disconnected')
 
 if __name__ == '__main__':
-    socketio.run(app)
+    socketio.run(app, port=62004)

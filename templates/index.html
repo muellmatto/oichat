@@ -15,7 +15,7 @@
         <input type="submit" value='oi!'>
     </form>
     <script>
-        var socket = io.connect('http://' + document.domain + ':' + location.port + '/test');
+        var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + '/test');
         socket.on('oi response', function(msg) { 
             let li = document.createElement('li');
             let ul = document.getElementById('messages');
